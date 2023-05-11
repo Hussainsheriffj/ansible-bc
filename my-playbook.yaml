@@ -1,0 +1,24 @@
+---    #this three lines are part of best practices which means seperating different blocks in a yaml file
+- name: Configure nginx web server
+  hosts: webserver
+  become: yes             #to become a root user we need to add this
+  tasks:
+  - name: "apt-get update"
+    apt:
+      update_cache: yes
+  - name: install nginx
+    apt:
+      name: nginx=1.18.0-6ubuntu14.3        #just nginx if you don't want any particular version
+      state: present                         #put latest instead of present for latest version
+  - name: start the nginx server
+    service:
+      name: nginx
+      state: started
+  - name: stop the nginx server
+    service:
+      name: nginx
+      state: stopped
+  - name: uninstall nginx
+    apt:
+      name: nginx=1.18.0-6ubuntu14.3
+      state: absent
