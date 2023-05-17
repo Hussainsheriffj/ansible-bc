@@ -31,7 +31,12 @@
         pattern: "nexus-*"
         file_type: directory
       register: find_result
-    - name: check if nexus folder already exists
     # - debug: msg={{find_results}}            --debugged it read the result of find_result output to find the folder
+    - name: check if nexus folder already exists
+      stat:
+        path: /opt/nexus
+      register: stat_result
+    # - debug: msg={{stat_result.stat.exists}}     --to check where the exists present inside stat_result
     - name: Rename nexus folder
       shell: mv {{find_result.files[0].path}} /opt/nexus     #unlike above commands shell commands will execute every time to skip that v r using above conditionals
+      when: not stat_result.stat.exists    #task will perform only if the file does not exist
