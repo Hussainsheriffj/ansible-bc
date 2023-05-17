@@ -1,1 +1,37 @@
 ---
+- name: Install Java and net-tools
+  hosts: 54.183.11.199
+  become: true
+  tasks:
+    - name: Update apt repo and cache
+      apt: update_cache=true force_apt_get=true cache_valid_time=3600
+    - name: Install Java 8
+      apt: name=openjdk-8-jre-headless
+    - name: Install net-tools
+      apt: name=net-tools
+
+- name: Download and unpack nexus installer
+  hosts: 54.183.11.199
+  become: true
+  tasks:
+    - name: Download Nexus
+      get_url:
+        url: https://download.sonatype.com/nexus/3/latest-unix.tar.gz
+        dest: /opt/
+      register: download_result
+    #- debug: msg={{download_result}}   ---we just used it read the down_res file to find key of file's location
+    - name: Untar nexus installer
+      unarchive:
+        src: "{{download_result.dest}}"
+        dest: /opt/
+        remote_src: true
+    - name: Find nexus folder to rename it
+      find: 
+        paths: /opt
+        pattern: "nexus-*"
+        file_type: directory
+      register: find_result
+    - name: check if nexus folder already exists
+    # - debug: msg={{find_results}}            --debugged it read the result of find_result output to find the folder
+    - name: Rename nexus folder
+      shell: mv {{find_result.files[0].path}} /opt/nexus     #unlike above commands shell commands will execute every time to skip that v r using above conditionals

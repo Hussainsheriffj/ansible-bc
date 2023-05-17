@@ -15,3 +15,6 @@ run_as_user="nexus"
 
 su - nexus
 /opt/nexus-3.53.1-02/bin/nexus start
+
+ps aux | grep nexus
+netstat -lnpt
