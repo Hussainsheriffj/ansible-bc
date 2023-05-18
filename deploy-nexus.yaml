@@ -1,6 +1,6 @@
 ---
 - name: Install Java and net-tools
-  hosts: 54.183.11.199
+  hosts: 54.219.178.183
   become: true
   tasks:
     - name: Update apt repo and cache
@@ -11,7 +11,7 @@
       apt: name=net-tools
 
 - name: Download and unpack nexus installer
-  hosts: 54.183.11.199
+  hosts: 54.219.178.183
   become: true
   tasks:
     - name: Download Nexus
