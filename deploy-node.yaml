@@ -10,6 +10,8 @@
         pkg:
           - nodejs
           - npm
+          - acl
+      # in latest ubuntu acl doesn't present so I installed in manually it's not mentioned in the tutorial
 
 - name: Create new linux user for node app
   hosts: 3.101.15.17
