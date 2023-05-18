@@ -5,5 +5,8 @@
         "plnt",
         "sonatype",
         "Untar"
+    ],
+    "cSpell.ignoreWords": [
+        "webserver"
     ]
 }

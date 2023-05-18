@@ -1,4 +1,4 @@
----    #this three lines are part of best practices which means seperating different blocks in a yaml file
+---    #this three lines are part of best practices which means separating different blocks in a yaml file
 - name: Configure nginx web server
   hosts: webserver
   become: yes             #to become a root user we need to add this
